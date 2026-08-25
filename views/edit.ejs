@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Portfolio — Ezra Ambaw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="bg-aurora" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <header class="navbar">
+    <a href="/" class="nav-logo">EA</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="/" class="nav-link">← Back to Portfolio</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <section class="edit-page">
+    <div class="section-head">
+      <span class="section-eyebrow">Dashboard</span>
+      <h2 class="section-title">Edit Portfolio</h2>
+    </div>
+
+    <div class="edit-container">
+      <form id="editForm" enctype="multipart/form-data">
+
+        <div class="edit-section">
+          <h3><span><i data-lucide="user" style="width:20px;height:20px;"></i></span> Profile Information</h3>
+
+          <div class="form-group">
+            <label for="edit-name">Name *</label>
+            <input type="text" id="edit-name" name="name" class="form-control" 
+                   value="<%= portfolio && portfolio.name ? portfolio.name : 'Ezra Ambaw' %>" required>
+            <div class="validation-error" id="name-error">Name is required.</div>
+          </div>
+
+          <div class="form-group">
+            <label>Profile Picture</label>
+            <div>
+              <img id="picture-preview" class="image-preview" 
+                   src="<%= portfolio && portfolio.picture ? portfolio.picture : '/assets/ezra.jpg' %>" 
+                   alt="Preview">
+            </div>
+            <div class="file-input-wrap">
+              <button type="button" class="btn btn-ghost btn-small">Choose Image</button>
+              <input type="file" id="edit-picture" name="picture" accept=".png,.jpg,.jpeg,.gif">
+            </div>
+            <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">Allowed: PNG, JPG, JPEG, GIF (max 5MB)</p>
+            <div class="validation-error" id="picture-error">Invalid file type. Only images allowed.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-bio">Bio *</label>
+            <textarea id="edit-bio" name="bio" class="form-control" rows="5" required><%= portfolio && portfolio.bio ? portfolio.bio : "Tech enthusiast, KUE SSC '28, EAII 25'. Building interfaces, training models, and editing video, one project at a time." %></textarea>
+            <div class="validation-error" id="bio-error">Bio is required.</div>
+          </div>
+        </div>
+
+        <div class="edit-section">
+          <h3><span><i data-lucide="folder-git-2" style="width:20px;height:20px;"></i></span> Projects</h3>
+          <p style="color:var(--muted);font-size:0.9rem;margin-bottom:20px;">Add your GitHub projects. Each project needs a title, description, and valid GitHub URL.</p>
+
+          <div id="projects-container">
+            <% if (portfolio && portfolio.projects && portfolio.projects.length > 0) { %>
+              <% portfolio.projects.forEach((project, idx) => { %>
+                <div class="project-entry" data-index="<%= idx %>">
+                  <div class="project-entry-header">
+                    <h4>Project <%= idx + 1 %></h4>
+                    <button type="button" class="btn-remove" onclick="removeProject(this)">Remove</button>
+                  </div>
+                  <div class="form-group">
+                    <label>Project Title *</label>
+                    <input type="text" class="form-control proj-title" value="<%= project.title %>" placeholder="e.g. Portfolio Website" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control proj-desc" value="<%= project.description || '' %>" placeholder="Short description">
+                  </div>
+                  <div class="form-group">
+                    <label>GitHub URL *</label>
+                    <input type="url" class="form-control proj-url" value="<%= project.githubUrl %>" placeholder="https://github.com/user/repo" required>
+                    <div class="validation-error">Invalid GitHub URL. Format: https://github.com/username/repository</div>
+                  </div>
+                </div>
+              <% }) %>
+            <% } %>
+          </div>
+
+          <button type="button" class="btn-add" id="addProjectBtn">
+            <i data-lucide="plus" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"></i>
+            Add Project
+          </button>
+        </div>
+
+        <div class="edit-actions">
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="save" style="width:16px;height:16px;"></i>
+            Save Changes
+          </button>
+          <a href="/" class="btn btn-ghost">Cancel</a>
+        </div>
+
+        <div class="form-toast" id="editToast" style="margin-top:20px;"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Ezra Ambaw. Admin Dashboard.</p>
+  </footer>
+
+  <script src="/js/edit.js"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezra Ambaw — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" crossorigin="anonymous"/>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="bg-aurora" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <header class="navbar">
+    <a href="#home" class="nav-logo">EA</a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#certifications" class="nav-link">Certifications</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#achievements" class="nav-link">Achievements</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <a href="/edit" class="btn btn-primary btn-small edit-btn">Edit</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Hi, I'm</span>
+      <h1 class="hero-name"><%= portfolio && portfolio.name ? portfolio.name : 'Ezra Ambaw' %></h1>
+      <p class="hero-job">Frontend Developer · ML Engineer · Video Editor</p>
+      <p class="hero-blurb">
+        <%= portfolio && portfolio.bio ? portfolio.bio : "Tech enthusiast, KUE SSC '28, EAII 25'. Building interfaces, training models, and editing video, one project at a time." %>
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero-portrait">
+      <div class="portrait-ring">
+        <img src="<%= portfolio && portfolio.picture ? portfolio.picture : '/assets/ezra.jpg' %>" 
+             alt="<%= portfolio && portfolio.name ? portfolio.name : 'Ezra Ambaw' %>">
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">About</span>
+      <h2 class="section-title">A bit more about me</h2>
+    </div>
+    <div class="about-content reveal">
+      <p>
+        <%= portfolio && portfolio.bio ? portfolio.bio : "I'm a Science Shared Campus junior student and an EAII 25' Machine Learning graduate. I work across frontend development, machine learning, and video editing, and I'm always looking for the next thing to build, train, or cut together." %>
+      </p>
+      <div class="about-tags">
+        <span class="tag">Frontend Development</span>
+        <span class="tag">ML Engineering</span>
+        <span class="tag">Video Editing</span>
+        <span class="tag">Tech Enthusiast</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="certifications">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Certifications</span>
+      <h2 class="section-title">Credentials & Learning</h2>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon"><i data-lucide="award"></i></div>
+        <h3 class="cert-title">Frontend Development</h3>
+        <p class="cert-details">Issued by Udacity • 2025</p>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-icon"><i data-lucide="brain-circuit"></i></div>
+        <h3 class="cert-title">Machine Learning Specialization</h3>
+        <p class="cert-details">Issued by EAII • 2024</p>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-icon"><i data-lucide="code-2"></i></div>
+        <h3 class="cert-title">Summer Space Training</h3>
+        <p class="cert-details">Issued by ESSS • 2024</p>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-4">
+        <div class="cert-icon"><i data-lucide="terminal"></i></div>
+        <h3 class="cert-title">Python Development</h3>
+        <p class="cert-details">Issued by EAII • 2024 </p>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-5">
+        <div class="cert-icon"><i data-lucide="cpu"></i></div>
+        <h3 class="cert-title">Data Science Fundamentals</h3>
+        <p class="cert-details">Issued by Udacity • 2025</p>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-6">
+        <div class="cert-icon"><i data-lucide="sparkles"></i></div>
+        <h3 class="cert-title">AI Fundamentals</h3>
+        <p class="cert-details">Issued by Udacity • 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Projects</span>
+      <h2 class="section-title">Things I've Built</h2>
+    </div>
+
+    <div class="project-grid">
+      <% if (portfolio && portfolio.projects && portfolio.projects.length > 0) { %>
+        <% portfolio.projects.forEach((project, index) => { %>
+          <div class="project-card reveal reveal-delay-<%= (index % 3) + 1 %>">
+            <div class="project-header">
+              <h3 class="project-title"><%= project.title %></h3>
+              <a href="<%= project.githubUrl %>" target="_blank" rel="noopener" class="project-github">
+                <i data-lucide="github" style="width:14px;height:14px;"></i>
+                GitHub
+              </a>
+            </div>
+            <div class="project-image-wrap">
+              <% if (project.image) { %>
+                <img src="<%= project.image %>" alt="<%= project.title %>">
+              <% } else { %>
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--surface-light),var(--bg));display:flex;align-items:center;justify-content:center;color:var(--muted);">
+                  <i data-lucide="image" style="width:40px;height:40px;opacity:0.4;"></i>
+                </div>
+              <% } %>
+            </div>
+            <% if (project.description) { %>
+              <p class="project-desc"><%= project.description %></p>
+            <% } %>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-header">
+            <h3 class="project-title">Amharic Sentiment Analyzer</h3>
+            <a href="https://github.com/axel777-arch/sentiment" target="_blank" rel="noopener" class="project-github">
+              <i class="fa-brands fa-github-alt"></i>
+              GitHub
+            </a>
+          </div>
+          <img src="/assets/sentiment.webp" alt="Amharic Sentiment Analyzer" style="width:100%;height:100%;object-fit:cover;">
+          <p class="project-desc">PyTorch-based Amharic sentiment analysis model trained on custom datasets with a Flask API and local database integration for real-time text classification.</p>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header">
+            <h3 class="project-title">Ethiopian Nutrition Guide</h3>
+            <a href="https://github.com/axel777-arch/Gursha-AI-prcc" target="_blank" rel="noopener" class="project-github">
+              <i class="fa-brands fa-github-alt"></i>
+              GitHub
+            </a>
+          </div>
+          <div class="project-image-wrap">
+            <img src="/assets/food.jpg" alt="Nutrition Guide" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <p class="project-desc">AI-powered nutrition assistant built around Ethiopian foods, delivering personalized meal recommendations and nutritional insights using a locally curated food database.</p>
+        </div>
+
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-header">
+            <h3 class="project-title">AI Study Assistant</h3>
+            <a href="https://github.com/axel777-arch/prep-ai-1" target="_blank" rel="noopener" class="project-github">
+              <i class="fa-brands fa-github-alt"></i>
+              GitHub
+            </a>
+          </div>
+          <div class="project-image-wrap">
+            <img src="/assets/study.jpg" alt="AI Study Assistant" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <p class="project-desc">Full-stack AI-powered study assistant featuring personalized learning plans, exam preparation tools, progress tracking, and intelligent question generation to improve student performance.</p>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <section id="achievements" class="achievements">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Achievements</span>
+      <h2 class="section-title">Things I'm proud of</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <span class="timeline-year">2025</span>
+        <div class="timeline-content">
+          <h3 class="timeline-title">Completed all 4 courses — Udacity</h3>
+          <p class="timeline-org">5 Million Ethiopian Coders Initiative</p>
+          <p class="timeline-desc">
+            Finished the full 4-course track under the 5 Million Ethiopian
+            Coders program, sharpening frontend and software fundamentals
+            along the way.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <span class="timeline-year">2023/24</span>
+        <div class="timeline-content">
+          <h3 class="timeline-title">Top 5 in City-wide Ministry Test</h3>
+          <p class="timeline-org">Addis Ababa — English Department</p>
+          <p class="timeline-desc">
+            Stood 4th from all examinees in the city-wide ministry test in English 
+            with an average of 92.64 and a percentile of 99.9.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <span class="timeline-year">2023-2025</span>
+        <div class="timeline-content">
+          <h3 class="timeline-title">3× Sub-city-wide Competition Winner</h3>
+          <p class="timeline-org">Addis Ababa</p>
+          <p class="timeline-desc">
+            Won a sub-city-wide science and math competition 3 times in a row and 
+            placed 3rd and 2nd in 2 city-wide competitions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Reach Out</span>
+      <h2 class="section-title">Tell me about your project</h2>
+    </div>
+
+    <div class="contact-wrapper">
+      <div class="contact-info-card reveal">
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="contact-info-text">
+            <h4>Phone Number</h4>
+            <p>+251 993 236 764</p>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fa-regular fa-envelope"></i></div>
+          <div class="contact-info-text">
+            <h4>Email</h4>
+            <a href="mailto:ezraambaw@gmail.com">ezraambaw@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fa-brands fa-instagram"></i></div>
+          <div class="contact-info-text">
+            <h4>Instagram</h4>
+            <a href="https://www.instagram.com/a_xel.aep/" target="_blank">@a_xel.aep</a>
+          </div>
+        </div>
+
+        <div class="contact-socials">
+          <a href="https://github.com/axel777-arch" target="_blank" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/ezra-ambaw/" target="_blank" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://t.me/a_xelaep" target="_blank" aria-label="Telegram">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+          <a href="https://tiktok.com/@a_xel.aep" target="_blank" aria-label="Tiktok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form-card reveal reveal-delay-2">
+        <h3>Send Me a Message</h3>
+        <p class="form-subtitle">I'll reply as soon as possible.</p>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="cf-name">Your Name</label>
+            <input type="text" id="cf-name" class="form-control" placeholder="John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cf-email">Your Email</label>
+            <input type="email" id="cf-email" class="form-control" placeholder="john@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cf-subject">Subject</label>
+            <input type="text" id="cf-subject" class="form-control" placeholder="Project inquiry" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cf-message">Your Message</label>
+            <textarea id="cf-message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-btn">
+            Send Message
+            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </button>
+
+          <div class="form-toast" id="formToast"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Ezra Ambaw. Built with Node.js, Express & JSON.</p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
